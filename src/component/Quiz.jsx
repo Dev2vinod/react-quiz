@@ -1,4 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+
+import FormControl from '@mui/joy/FormControl';
+import FormLabel from '@mui/joy/FormLabel';
+import Radio from '@mui/joy/Radio';
+import RadioGroup from '@mui/joy/RadioGroup';
+
 
 const Quiz = () => {
 
@@ -112,100 +118,88 @@ let Question = [
         
         
     
+        const[score,setScore] =useState(0)
         
         const nextQuestion =()=>{
             
-                if(question){
-                    console.log("quetion is end -->",question[14].question)
+            if(index<=question.length-1){
+
+
+                            
+
+         setValue(false)
                     
-                }else{
-                    console.log("question[index]",question.length,index,"mee if ke andar hu")
-                }
-            setIndex(index+1)
+                setIndex(index+1)
+            }else{
+
+
+                console.log("quetion is end")
+            }
+                 
 
             }
 
 
-            const[fname,setFname]=useState("")
-            const[email,setEmail]=useState("")
-            const[password,setPassword]=useState("")
+            const [value, setValue] = React.useState('');
+            const handleChange = (event) => {
 
-            const addall =()=>{
+                
+                if(event.target.checked){
+                    console.log("hello")
 
-                const info ={
-                    fname,
-                    email,
-                    password
+                    setScore(score + 1)
+                        
                 }
-                console.log("info",info)
+                setValue(event.target.checked);
+                console.log("value",value)
+                       };
 
-            }
+
+            
   return (
     <>
+   
+    <div className='bg-purple-500 w-[50%] mx-auto my-4 p-4'>
+        {index<=question.length-1 ? 
+       <FormControl>
+      <FormLabel>Question {index}  { question[index].question} </FormLabel>
+
+      <RadioGroup
+  
+             name="controlled-radio-buttons-group"
+            defaultValue={false}
+            // value={value}
+             onChange={handleChange}
+                sx={{ my: 1,mx:3 }}
+>
+        <Radio value="option1" onChange={handleChange}  label={question[index].option1 } variant="outlined" color="success" sx={{backgroundColor:'green',hover:'blue'}}/>
+
+        <Radio value="option2"  onChange={handleChange} label={question[index].option2 } variant="outlined" />
+
+        <Radio value="option3" onChange={handleChange} label={question[index].option3 } variant="outlined" />
+
+        <Radio value="option4"  onChange={handleChange} label={question[index].option4 } variant="outlined" />
+
+        </RadioGroup>
+
+    </FormControl>
+
+       
+          : <h1> quetion is end</h1>}
+    </div>
+    {/* {question[index].question} <br /> */}
+ 
 
 
-    <div>
 
-
-        {/* <div  className='flex flex-col items-start justify-center bg-pink-500
-     w-[50%] p-2 mx-auto mt-[10%]'>   
-
-         <div className='m-2'>
-          Question :  { index} :
-
-             {question[index].question} 
-         </div>
-        
-         <div>
-           <input type="radio" value={option1} name='kya' />
-             {question[index].option1} 
-
-
-             </div>
-         <div>
-           <input type="radio" value={option2} name='kya'/>
-             {question[index].option2} 
-
-
-             </div>
-         <div>
-           <input type="radio"  value={option3} name='kya'/>
-             {question[index].option3} 
-
-
-             </div>
-         <div>
-           <input type="radio"  value={option4} name='kya'/>
-             {question[index].option4} 
-
-
-             </div>
+    <button className='bg-pink-300 ml-[50%]'  onClick={nextQuestion} >Next</button>
        
 
-        <button onClick={()=>question.length && nextQuestion()} className='bg-blue-700 px-6 mx-auto mt-2' >Next</button>
-    </div>  */}
-             <button onClick={()=> nextQuestion()} className='bg-blue-700 px-6 mx-auto mt-2' >Next</button>
-    hello
-    </div>
+     <div>
+        {score}
+     </div>
 
-
-   <div className='flex flex-col gap-3'>
-
-    <div>
-        name <input type="text"  placeholder='name' value={fname} onChange={(e)=>setFname(e.target.value)} />
-    </div>
-    <div>
-        email <input type="email" value={email}   onChange={(e)=>setEmail(e.target.value)}/>
-    </div>
-    <div>
-        password <input type="password" value={password}  onChange={(e)=>setPassword(e.target.value)}/>
-    </div>
-
-    <button className='bg-blue-600' onClick={addall}>sumbit</button>
-
-   </div>
-
-     
+       
 
     </>
   )
